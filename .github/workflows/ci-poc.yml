@@ -2,7 +2,7 @@ name: SKS Disk Write Failure PoC
 
 on:
   push:
-    branches: [ci-poc]
+    branches: [ci-poc-1]
 
 jobs:
   build-and-test:
