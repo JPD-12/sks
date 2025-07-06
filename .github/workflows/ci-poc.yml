@@ -25,7 +25,7 @@ jobs:
 
       - name: Run PoC main.go
         run: |
-          go run main.go | tee output.log
+          go run cmd/main.go | tee output.log
           if grep -q "Warning: Data not saved but no error returned on Save" output.log; then
             echo "::error::PoC detected silent disk write failure vulnerability..."
             exit 1
