@@ -17,13 +17,12 @@ package diskio
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"errors"
 	"os"
 	"sync"
 
-	"github.com/jgoguen/go-utils/xdg"
 	"github.com/peterbourgon/diskv"
 )
+
 
 var (
 	db   Database
