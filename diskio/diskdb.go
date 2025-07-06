@@ -106,28 +106,30 @@ func (diskdb *diskKVStore) Visit(visitor func(key string, val []byte) error) err
 
 // OpenDB opens a Database connection.
 func OpenDB() (Database, error) {
-	var err error
+    var err error
 
-	once.Do(func() {
-		dbDir := xdg.GetDataPath("sks")
-		if dbDir == "" {
-			err = errors.New("could not determine the location for the DB")
-		}
+    once.Do(func() {
+        // Override DB dir to simulate read-only disk
+        dbDir := "/tmp/ci_readonly_db"
 
-		err = os.MkdirAll(dbDir, 0700)
-		if err != nil {
-			return
-		}
+        err = os.MkdirAll(dbDir, 0700)
+        if err != nil {
+            return
+        }
+        err = os.Chmod(dbDir, 0500) // read & execute only, no write
+        if err != nil {
+            return
+        }
 
-		db = &diskKVStore{
-			db: diskv.New(diskv.Options{
-				BasePath:     dbDir,
-				CacheSizeMax: 1024 * 1024, // 1MB cache max
-				FilePerm:     0600,
-				PathPerm:     0700,
-			}),
-		}
-	})
+        db = &diskKVStore{
+            db: diskv.New(diskv.Options{
+                BasePath:     dbDir,
+                CacheSizeMax: 1024 * 1024,
+                FilePerm:     0600,
+                PathPerm:     0700,
+            }),
+        }
+    })
 
-	return db, err
+    return db, err
 }

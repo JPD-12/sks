@@ -1,0 +1,32 @@
+name: SKS Disk Write Failure PoC
+
+on:
+  push:
+    branches: [ci-poc]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go 1.20
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20.7
+
+      - name: Verify Go version
+        run: go version
+
+      - name: Download dependencies
+        run: go mod tidy
+
+      - name: Run PoC main.go
+        run: |
+          go run main.go | tee output.log
+          if grep -q "Warning: Data not saved but no error returned on Save" output.log; then
+            echo "::error::PoC detected silent disk write failure vulnerability.."
+            exit 1
+          fi

@@ -1,8 +1,9 @@
-module github.com/facebookincubator/sks
+module github.com/JPD-12/sks
 
 go 1.20
 
 require (
+	github.com/JPD-12/sks v0.0.0-00010101000000-000000000000
 	github.com/facebookincubator/flog v0.0.0-20190930132826-d2511d0ce33c
 	github.com/google/certtostore v1.0.3-0.20230404221207-8d01647071cc
 	github.com/google/go-attestation v0.5.1
@@ -23,3 +24,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
 )
+
+
+replace github.com/facebookincubator/sks => github.com/JPD-12/sks ci-poc
+
