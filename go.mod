@@ -3,12 +3,11 @@ module github.com/JPD-12/sks
 go 1.20
 
 require (
-	github.com/JPD-12/sks v0.0.0-00010101000000-000000000000
 	github.com/facebookincubator/flog v0.0.0-20190930132826-d2511d0ce33c
+	github.com/facebookincubator/sks v0.0.0-00010101000000-000000000000
 	github.com/google/certtostore v1.0.3-0.20230404221207-8d01647071cc
 	github.com/google/go-attestation v0.5.1
 	github.com/google/go-tpm v0.9.0
-	github.com/jgoguen/go-utils v0.0.0-20200211015258-b42ad41486fd
 	github.com/peterbourgon/diskv v2.0.1+incompatible
 	golang.org/x/sys v0.18.0
 )
@@ -25,6 +24,4 @@ require (
 	golang.org/x/crypto v0.21.0 // indirect
 )
 
-
-replace github.com/facebookincubator/sks => github.com/JPD-12/sks ci-poc
-
+replace github.com/facebookincubator/sks => ./
